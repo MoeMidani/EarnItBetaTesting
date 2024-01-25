@@ -14,6 +14,9 @@
 		C12435652B5DC01B007588A1 /* Earn_it_practiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12435642B5DC01B007588A1 /* Earn_it_practiceTests.swift */; };
 		C124356F2B5DC01B007588A1 /* Earn_it_practiceUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C124356E2B5DC01B007588A1 /* Earn_it_practiceUITests.swift */; };
 		C12435712B5DC01B007588A1 /* Earn_it_practiceUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C12435702B5DC01B007588A1 /* Earn_it_practiceUITestsLaunchTests.swift */; };
+		C124357F2B5DC0C1007588A1 /* link.swift in Sources */ = {isa = PBXBuildFile; fileRef = C124357E2B5DC0C1007588A1 /* link.swift */; };
+		C12435822B5DE326007588A1 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = C12435812B5DE326007588A1 /* SwiftSoup */; };
+		C124358D2B61715D007588A1 /* imageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C124358C2B61715D007588A1 /* imageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +47,8 @@
 		C124356A2B5DC01B007588A1 /* Earn it practiceUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Earn it practiceUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C124356E2B5DC01B007588A1 /* Earn_it_practiceUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Earn_it_practiceUITests.swift; sourceTree = "<group>"; };
 		C12435702B5DC01B007588A1 /* Earn_it_practiceUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Earn_it_practiceUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		C124357E2B5DC0C1007588A1 /* link.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = link.swift; sourceTree = "<group>"; };
+		C124358C2B61715D007588A1 /* imageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = imageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +56,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C12435822B5DE326007588A1 /* SwiftSoup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,6 +102,8 @@
 			children = (
 				C12435532B5DC019007588A1 /* Earn_it_practiceApp.swift */,
 				C12435552B5DC019007588A1 /* ContentView.swift */,
+				C124358C2B61715D007588A1 /* imageView.swift */,
+				C124357E2B5DC0C1007588A1 /* link.swift */,
 				C12435572B5DC01B007588A1 /* Assets.xcassets */,
 				C12435592B5DC01B007588A1 /* Preview Content */,
 			);
@@ -143,6 +151,9 @@
 			dependencies = (
 			);
 			name = "Earn it practice";
+			packageProductDependencies = (
+				C12435812B5DE326007588A1 /* SwiftSoup */,
+			);
 			productName = "Earn it practice";
 			productReference = C12435502B5DC019007588A1 /* Earn it practice.app */;
 			productType = "com.apple.product-type.application";
@@ -215,6 +226,9 @@
 				Base,
 			);
 			mainGroup = C12435472B5DC019007588A1;
+			packageReferences = (
+				C12435802B5DE326007588A1 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
+			);
 			productRefGroup = C12435512B5DC019007588A1 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -257,8 +271,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C124358D2B61715D007588A1 /* imageView.swift in Sources */,
 				C12435562B5DC019007588A1 /* ContentView.swift in Sources */,
 				C12435542B5DC019007588A1 /* Earn_it_practiceApp.swift in Sources */,
+				C124357F2B5DC0C1007588A1 /* link.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -422,6 +438,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Earn it practice/Preview Content\"";
+				DEVELOPMENT_TEAM = M8ZG8KDA6A;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -450,6 +467,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Earn it practice/Preview Content\"";
+				DEVELOPMENT_TEAM = M8ZG8KDA6A;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -582,6 +600,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C12435802B5DE326007588A1 /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scinfu/SwiftSoup.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.7.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C12435812B5DE326007588A1 /* SwiftSoup */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C12435802B5DE326007588A1 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
+			productName = SwiftSoup;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = C12435482B5DC019007588A1 /* Project object */;
 }
