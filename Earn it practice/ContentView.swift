@@ -27,7 +27,18 @@ struct ContentView: View {
                 .padding()
             Button(action: {
                 if var urlLink = URL(string: urlText), UIApplication.shared.canOpenURL(urlLink) {
-                     imgUrl = getProductImage(url: urlLink)
+//                     imgUrl = getProductImage(url: urlLink)
+                    getProductImage(url: URL(string:urlText)!) { result in
+                        switch result {
+                        case .success(let imgURL):
+                            print("Image URL: \(imgURL)")
+                            imgUrl = imgURL
+
+                        case .failure(let error):
+                            print("Error: \(error)")
+                        }
+                    }
+
 //                    urlLink = URL(string: "Empty") ?? URL(string: "Empty")!
                     isValidLink = true
                      
