@@ -8,44 +8,48 @@
 import SwiftUI
 import SwiftSoup
 import UIKit
+func getProductImage(url: URL, completion: @escaping (Result<(String,String,String), Error>) -> Void) {
+    URLSession.shared.dataTask(with: url) { data, response, error in
+        if let error = error {
+            completion(.failure(error))
+            return
+        }
+        guard let data = data, let html = String(data: data, encoding: .utf8) else {
+            completion(.failure(NSError(domain: "InvalidData", code: 0, userInfo: nil)))
+            return
+        }
+        do {
+            let doc: Document = try SwiftSoup.parseBodyFragment(html)
+//            dp-container
+            let container: Element = try doc.getElementById("dp-container")!
+//            print(img2)
+            let titleElement: Element = try container.getElementById("productTitle")!
+            guard let title = try? titleElement.text() else { return }
+//            print(title)
 
+            let priceElement: Element = try container.getElementsByClass("a-offscreen").first()!
+            guard let price = try? priceElement.text() else { return }
+            
+            let imageElement: Element = try container.select("#imgTagWrapperId img").first()!
+//            print(img1)
+//            print(price)
 
-struct ImageLoaderView: UIViewControllerRepresentable {
-
-    var url: URL
-
-    func makeUIViewController(context: Context) -> UIViewController {
-        let viewController = ImageLoaderViewController()
-        viewController.url = url
-        return viewController
-    }
-
-    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
-        // Update the view controller if needed
-    }
+            let imgLink = try imageElement.attr("src")
+//            print("src attribute value: \(srcValue)")
+//            let img: Element = try img1.select("img[src$=.png]").first()!
+//            print(img)
+//            let imgOuterHtml: String = try img.outerHtml()
+//            let imgUrl = getImageUrl(imgOuterHtml)
+//            print(imgUrl)
+            
+            completion(.success((imgLink,price,title)))
+        } catch {
+            completion(.failure(error))
+        }
+    }.resume()
 }
 
-
-
-//func getProductImage(url: URL)-> String{
-////    print(url)
-//    var result = ""
-//    do {
-//        let html = try String(contentsOf: url, encoding: .utf8)
-//        let doc: Document = try SwiftSoup.parseBodyFragment(html)
-//        let img: Element = try doc.select("li.image.item.itemNo0.maintain-height.selected img").first()!
-//        let imgOuterHtml: String = try img.outerHtml();
-//        let imgUrl = getImageUrl(imgOuterHtml)
-//        result = imgUrl
-//    }
-//    catch {
-//        print(error)
-//    }
-////    print(result)
-//    return result
-//    
-//}
-func getProductImage(url: URL, completion: @escaping (Result<String, Error>) -> Void) {
+func getRealImage(url: URL, completion: @escaping (Result<String, Error>) -> Void) {
     URLSession.shared.dataTask(with: url) { data, response, error in
         if let error = error {
             completion(.failure(error))
@@ -59,10 +63,16 @@ func getProductImage(url: URL, completion: @escaping (Result<String, Error>) -> 
         
         do {
             let doc: Document = try SwiftSoup.parseBodyFragment(html)
-            let img: Element = try doc.select("li.image.item.itemNo0.maintain-height.selected img").first()!
-            let imgOuterHtml: String = try img.outerHtml()
-            let imgUrl = getImageUrl(imgOuterHtml)
-            completion(.success(imgUrl))
+            let linkOut: Element = try doc.select("link[rel=canonical]").first()!
+            let links: String = try linkOut.outerHtml()
+//            let link = getImageUrl(links)
+            let link = getImageUrl(links)
+
+            print(link)
+            
+            
+
+            completion(.success(link))
         } catch {
             completion(.failure(error))
         }
@@ -82,15 +92,8 @@ private func loadImage(from url: URL) {
             print("Error: \(error)")
         }
     }
-//    print(imgUrl)
-    print("HERE")
-
-    
-       // Use imgUrl as needed, e.g., to display the image
-       // Update your UI components here
+//    print("HERE")
    }
-
-    
 func getImageUrl(_ input: String)->String{
     let detector = try! NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
     let matches = detector.matches(in: input, options: [], range: NSRange(location: 0, length: input.utf16.count))
@@ -100,37 +103,9 @@ func getImageUrl(_ input: String)->String{
     
     return String(url).components(separatedBy: "&")[0]
 }
-    
-class ViewController: UIViewController {
 
 
 
-override func viewDidLoad() {
-    super.viewDidLoad()
-    
-    //guard let url = URL(string: "https://www.amazon.com/dp/B08FC6C75Y") else {
-    guard let url = URL(string: "https://www.amazon.com/dp/B0084DS9EE") else {
-        fatalError("Can not get url")
-    }
-//    let imgUrl = getProductImage(url: url)
-    //print(imgUrl)// https://images-na.ssl-images-amazon.com/images/I/61o7ai%2BYDoL._SL1441_.jpg
-//    print(imgUrl)  // https://images-na.ssl-images-amazon.com/images/I/41ZmuuKMtmL._SY450_.jpg
- }
-}
-
-
-
-class ImageLoaderViewController: UIViewController {
-    
-    var url: URL? {
-        didSet {
-            if let url = url {
-            loadImage(from: url)
-            }
-        }
-    }
-   
-}
 
 
 
