@@ -19,6 +19,8 @@ struct ContentView: View {
     @State private var urlText: String = ""
     @State var isValidLink : Bool = false
     @State var imgUrl : String = ""
+    @State var price : String = ""
+    @State var title : String = ""
     var body: some View {
         
         VStack {
@@ -28,16 +30,30 @@ struct ContentView: View {
             Button(action: {
                 if var urlLink = URL(string: urlText), UIApplication.shared.canOpenURL(urlLink) {
 //                     imgUrl = getProductImage(url: urlLink)
-                    getProductImage(url: URL(string:urlText)!) { result in
+                    getRealImage(url: URL(string:urlText)!) { result in
                         switch result {
                         case .success(let imgURL):
-                            print("Image URL: \(imgURL)")
+//                            print("Image URL:  \(imgURL)")
+                            getProductImage(url: URL(string:imgURL)!) { result in
+                                switch result {
+                                case .success(let imgURL):
+        //                            print("Image URL:  \(imgURL)")
+                                    
+                                    imgUrl = imgURL.0
+                                    price = imgURL.1
+                                    title = imgURL.2
+                                    
+                                case .failure(let error):
+                                    print("Error: \(error)")
+                                }
+                            }
                             imgUrl = imgURL
-
+                            
                         case .failure(let error):
                             print("Error: \(error)")
                         }
                     }
+                    
 
 //                    urlLink = URL(string: "Empty") ?? URL(string: "Empty")!
                     isValidLink = true
@@ -53,6 +69,7 @@ struct ContentView: View {
                      .font(.caption)
                  }
             if (isValidLink){
+                Text("\(price) \n \(title)")
                 AsyncImage(url: URL(string: imgUrl)) { phase in
                                 if let image = phase.image {
                                     image
@@ -65,58 +82,6 @@ struct ContentView: View {
                                 }
                             }
                             .frame(width: 200, height: 200)
-                        }
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-                        if let urlLink = URL(string: urlText), UIApplication.shared.canOpenURL(urlLink) {
-//,                            // Use the UIViewControllerRepresentable to embed your ViewController
-            //                ImageLoaderView(url: urlLink)
-            //                let imgUrl = getProductImage(url: url)
-            
-            
-            
-            
-            
-                        } else {
-                            Text("Invalid URL")
-                                .foregroundColor(.red)
                         }
             
             
